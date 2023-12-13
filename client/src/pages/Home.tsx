@@ -1,14 +1,13 @@
 import React,{useState,useEffect} from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation,useNavigate } from "react-router-dom";
 import axios from "../config/axios";
-
+import {IPost} from "../types/userTypes"
 const Home: React.FC = () => {
-  const [posts, setPosts] = useState([]);
-
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const navigate = useNavigate()
   const cat = useLocation().search
 
     useEffect(() => {
-      console.log(cat)
     const fetchData = async () => {
       try {
         const res = await axios.get(`/posts${cat.length ? cat :"" }`);
@@ -40,7 +39,7 @@ const Home: React.FC = () => {
                 <h1>{post.title}</h1>
               </Link>
               <p>{getText(post.desc)}</p>
-              <button>Read More</button>
+              <button onClick={()=>navigate(`/single/${post.id}`)}>Read More</button>
             </div>
           </div>
         ))}

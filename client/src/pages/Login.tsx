@@ -1,4 +1,4 @@
-import {FC,useState,useContext,ChangeEvent} from "react"
+import {FC,useState,useContext,ChangeEvent,FormEvent} from "react"
 import {Link,useNavigate} from "react-router-dom"
 import {AuthContext} from "../context/AuthContext"
 type LoginInput = {
@@ -23,7 +23,7 @@ const Login: FC = () =>{
     })
   }
   
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e:FormEvent<HTMLFormElement>) =>{
     e.preventDefault()
     try{
     await login(input)
@@ -31,7 +31,7 @@ const Login: FC = () =>{
          username:"",
          password:""
       })
-     // navigate("/")
+      navigate("/")
     }catch(err:any){
       if(err.response){
         setErr(err.response.data.msg)

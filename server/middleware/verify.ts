@@ -4,7 +4,7 @@ import {IRequest} from "../types/post.type"
 export const tokenVerify = (req:IRequest,res:Response,next: NextFunction) =>{
   const token = req.cookies.token!
   const secret = process.env.ACCES_TOKEN_SECRET!
-console.log({token})
+  
   if(!token)
   return res.status(401).json({
     status:false,

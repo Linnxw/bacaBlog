@@ -5,7 +5,7 @@ const router: Router = express.Router()
 
 router.get("/posts",tokenVerify,getPosts)
 router.get("/post/:id",getPost)
-router.delete("/post/:id",tokenVerify,deletePost)
+router.delete("/post",tokenVerify,deletePost)
 router.patch("/post/:id",tokenVerify,updatePost)
 router.post("/post",tokenVerify,addPost)
 

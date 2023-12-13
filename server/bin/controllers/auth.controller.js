@@ -19,7 +19,7 @@ const register = (req, res) => {
                 msg: "Username or Email is registred"
             });
         const hashPassword = password_hash_1.default.generate(password);
-        const query = "INSERT INTO users (username,email,password,img) VALUES (?,?,?,?)";
+        const query = "INSERT INTO users (`username`,`email`,`password`,`img`) VALUES (?,?,?,?)";
         db_1.default.query(query, [username, email, hashPassword, ""], (err, data) => {
             if (err)
                 return res.status(500).json({ msg: err.message });

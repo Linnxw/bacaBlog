@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import {useNavigate } from "react-router-dom";
+import {useNavigate,useLocation} from "react-router-dom";
 import moment from "moment";
 import axios from "../config/axios"
 const Write = () => {
-  const [value, setValue] = useState("");
-  const [title, setTitle] = useState("");
+  const state = useLocation().state
+  const [value, setValue] = useState<string>(state?.desc || "");
+  const [title, setTitle] = useState<string>(state?.title || "");
   const [file, setFile] = useState(null);
-  const [cat, setCat] = useState("");
-
+  const [cat, setCat] = useState<string>(state?.cat.toLowerCase() || "");
+ 
   const navigate = useNavigate()
   const uploadImage = async () =>{
     try{
@@ -20,7 +21,6 @@ const Write = () => {
         "content-type":"multipart/form-data"
       }
     })
-    console.log(res)
     return res.data.fileName
     }catch(err: any){
       console.log(err)
@@ -30,25 +30,40 @@ const Write = () => {
   
   const handlePublish = async () =>{
     try{
-     const image = await uploadImage()
-    const res = await axios.post("/post",{
+    const image = file ? await uploadImage() : state.postImg
+    const res = state ? (
+     await axios.patch(`/post/${state.postId}`,{
+      title,
+      desc:value,
+      cat,
+      lastImg:state.postImg,
+      img:image,
+      date:moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+    }))
+     :  
+     (await axios.post("/post",{
       title,
       desc:value,
       cat,
       img:image,
       date:moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
-    })
-     console.log(res)
+    }))
+    console.log(res)
+     if(res.status === 200){
+       navigate("/")
+     }
     }catch(err:any){
      console.log(err)
     }
   }
+
   return (
     <div className="add">
       <div className="content">
         <input
           type="text"
           placeholder="Title"
+          value={title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
         />
         <div className="editorContainer">

@@ -7,18 +7,30 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const auth_router_1 = __importDefault(require("./routes/auth.router"));
+const post_router_1 = __importDefault(require("./routes/post.router"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const multer_1 = __importDefault(require("./config/multer"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = process.env.PORT;
 const corsOption = {
+    origin: "http://localhost:5173",
     credentials: true
 };
 app.use((0, cors_1.default)(corsOption));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
+(0, multer_1.default)(app);
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+    next();
+});
 //Route
 app.use("/api/auth", auth_router_1.default);
+app.use("/api", post_router_1.default);
 app.listen(PORT, () => {
     console.log(`Server runing in PORT: ${PORT}`);
 });

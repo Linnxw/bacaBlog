@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ChangeEvent,FormEvent} from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../config/axios"
@@ -14,20 +14,20 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const [err, setError] = useState(null);
+  const [err, setError] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await axios.post("/auth/register", inputs);
       navigate("/login");
-    } catch (err) {
+    } catch (err:any) {
       setError(err.response.data.msg);
     }
   };

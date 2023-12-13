@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Write from "./pages/Write"
+import Single from "./pages/Single"
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./style.scss"
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path:"/write",
         element:<Write/>
+      },
+      {
+        path:"/single/:id",
+        element:<Single/>
       }
     ],
   },
