@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
     <footer>
       <img src={Logo} alt="" />
       <span>
-        Made with ♥️ and <b>React.js</b>.
+        @bacablog <b>write read and post your imagine</b>.
       </span>
     </footer>
   );

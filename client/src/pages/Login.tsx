@@ -6,7 +6,7 @@ type LoginInput = {
   password: string
 }
 const Login: FC = () =>{
-  const [err,setErr] = useState(null)
+  const [err,setErr] = useState<string | null>(null)
   const [input,setInput] = useState<LoginInput>({
     username:"",
     password:""
@@ -15,7 +15,7 @@ const Login: FC = () =>{
   const navigate = useNavigate()
   const {login}: any = useContext(AuthContext)
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>{
-    setInput((prev)=>{
+    setInput((prev:LoginInput)=>{
       return {
         ...prev,
         [e.target.name] : e.target.value

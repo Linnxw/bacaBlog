@@ -1,4 +1,4 @@
-import React,{ChangeEvent,FormEvent} from "react";
+import {ChangeEvent} from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../config/axios"
@@ -19,11 +19,10 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setInputs((prev:RegisterInput) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       await axios.post("/auth/register", inputs);
       navigate("/login");

@@ -1,8 +1,13 @@
 import React,{useState,useEffect} from "react";
 import {useNavigate} from "react-router-dom"
 import axios from "../config/axios"
-const Menu:React.FC<any> = ({cat,currentPostId}:{cat:string,currentPostId}) => {
-  const [posts, setPosts] = useState([]);
+import {IPost} from "../types/userTypes"
+interface MenuProps {
+  cat: string
+  currentPostId: number
+}
+const Menu:React.FC<MenuProps> = ({cat,currentPostId}) => {
+  const [posts, setPosts] = useState<IPost[]>([]);
   const navigate = useNavigate()
   useEffect(()=>{
     const fetch = async () =>{

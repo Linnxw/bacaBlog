@@ -34,6 +34,6 @@ export interface ISinglePost{
   desc:string
   cat:string
   date:string
-  posrImg:string
+  postImg:string
   uid:number
 }

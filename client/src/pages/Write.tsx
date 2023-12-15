@@ -8,14 +8,15 @@ const Write = () => {
   const state = useLocation().state
   const [value, setValue] = useState<string>(state?.desc || "");
   const [title, setTitle] = useState<string>(state?.title || "");
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<null | File>(null);
   const [cat, setCat] = useState<string>(state?.cat.toLowerCase() || "");
  
   const navigate = useNavigate()
+  
   const uploadImage = async () =>{
     try{
    const formData = new FormData()
-    formData.append("file",file)
+    formData.append("file",file!)
     const res = await axios.post("/upload",formData,{
       headers:{
         "content-type":"multipart/form-data"
@@ -48,7 +49,7 @@ const Write = () => {
       img:image,
       date:moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
     }))
-    console.log(res)
+
      if(res.status === 200){
        navigate("/")
      }
@@ -89,7 +90,7 @@ const Write = () => {
             type="file"
             id="file"
             name=""
-            onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFile(e.target.files[0])}
+            onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFile(e.target.files![0])}
           />
           <label className="file" htmlFor="file">
             Upload Image

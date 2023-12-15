@@ -1,4 +1,4 @@
-import React, { useState ,useEffect,useContext} from "react";
+import { useState ,useEffect,useContext} from "react";
 import Edit from "../assets/images/edit.png"
 import Delete from "../assets/images/delete.png"
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -9,17 +9,15 @@ import { AuthContext } from "../context/AuthContext";
 import DOMPurify from "dompurify";
 import {ISinglePost} from "../types/userTypes"
 const Single = () => {
-  const [post, setPost] = useState<ISinglePost>({})
+  const [post, setPost] = useState<ISinglePost | null>(null)
   const navigate = useNavigate();
 
   const {id} = useParams()
-  const {currentUser} = useContext(AuthContext)
+  const {currentUser}:any = useContext(AuthContext)
   
   const getPost = async () =>{
     try{
       const {data} = await axios.get(`/post/${id}`)
-      
-      console.log(data)
       setPost(data.data)
     }catch(err:any){
       console.log(err)
@@ -32,7 +30,7 @@ const Single = () => {
   
   const handleDelete = async () =>{
     try{
-     const res = await axios.delete(`/post?id=${post.postId}&&img=${post.postImg}`)
+     const res = await axios.delete(`/post?id=${post?.postId}&&img=${post?.postImg}`)
      if(res.status === 200){
        navigate(-1)
      }
@@ -65,10 +63,10 @@ const Single = () => {
         <h1>{post?.title}</h1>
         <p
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(post?.desc),
+            __html: DOMPurify.sanitize(post?.desc!),
           }}
         ></p></div>
-      <Menu cat={post?.cat} currentPostId={post?.postId}/>
+      <Menu cat={post?.cat!} currentPostId={post?.postId!}/>
     </div>
   );
 };
