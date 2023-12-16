@@ -10,7 +10,8 @@ import Write from "./pages/Write"
 import Single from "./pages/Single"
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import "./style.scss"
+import Redirect from "./components/Redirect";
+import "./style.scss";
 
 const Layout = () => {
   return (
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/write",
-        element:<Write/>
+        element:<Redirect><Write/></Redirect>
       },
       {
         path:"/single/:id",

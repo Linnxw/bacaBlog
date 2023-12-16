@@ -10,6 +10,7 @@ export const tokenVerify = (req:IRequest,res:Response,next: NextFunction) =>{
     status:false,
     msg:"Not autentication"
   })
+  
   jwt.verify(token,secret,(err:any,decoded:any)=>{
     if(err)
     return res.status(403).json({

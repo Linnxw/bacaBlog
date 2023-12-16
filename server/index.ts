@@ -19,13 +19,7 @@ app.use(cors(corsOption))
 app.use(express.json())
 app.use(cookieParser())
 uploadFile(app)
-app.use((req,res,next)=>{
-  res.setHeader("Access-Control-Allow-Credentials","true")
-  res.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type")
-  res.setHeader("Access-Control-Allow-Methods" ,"GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS")
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173" )
-  next()
-})
+
 //Route
 app.use("/api/auth",authRouter)
 app.use("/api",postRouter)

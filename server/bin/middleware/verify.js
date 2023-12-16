@@ -8,7 +8,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const tokenVerify = (req, res, next) => {
     const token = req.cookies.token;
     const secret = process.env.ACCES_TOKEN_SECRET;
-    console.log({ token });
     if (!token)
         return res.status(401).json({
             status: false,

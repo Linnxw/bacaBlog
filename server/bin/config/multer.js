@@ -17,7 +17,7 @@ const storage = multer_1.default.diskStorage({
             cb("file must be an image", null);
             return;
         }
-        const uniqueSuffix = fileName + '-' + Date.now() + '-' + Math.round(Math.random() * 1E9) + ext;
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + ext;
         cb(null, uniqueSuffix);
     }
 });

@@ -21,13 +21,6 @@ app.use((0, cors_1.default)(corsOption));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 (0, multer_1.default)(app);
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS");
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-    next();
-});
 //Route
 app.use("/api/auth", auth_router_1.default);
 app.use("/api", post_router_1.default);

@@ -11,7 +11,6 @@ const Home: React.FC = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`/posts${cat.length ? cat :"" }`);
-         console.log(res)
         setPosts(res.data.data);
       } catch (err) {
         console.log(err);

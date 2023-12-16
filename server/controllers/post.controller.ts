@@ -4,6 +4,7 @@ import {IRequest,IPost,IUser} from "../types/post.type"
 interface ISinglePost extends IPost,IUser {}[]
 import fs from "fs"
 import path from "path"
+
 export const getPosts = (req:Request,res: Response) => {
   const query = req.query.cat ? "SELECT * FROM posts WHERE cat = ?" : "SELECT * FROM posts"
   req.query ? (db.query(query,[req.query.cat],(err:any,data:IPost[])=>{
@@ -92,7 +93,7 @@ export const updatePost = (req:Request,res: Response) => {
 }
 export const deletePost = (req:Request,res: Response) => {
   const query = "DELETE FROM posts WHERE id = ?"
-  console.log(req.query.id,req.query.img)
+
   db.query(query,[req.query.id],(err:any,data:any)=>{
     if(err){
       console.log(err)
@@ -100,7 +101,6 @@ export const deletePost = (req:Request,res: Response) => {
     }
     const filePath = path.join(__dirname,`../../client/public/uploads/${req.query.img}`)
     fs.unlinkSync(filePath)
-    console.log(__dirname)
     res.status(200).json({msg:"post deleted",status:true})
   })
 }
